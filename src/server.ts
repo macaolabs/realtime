@@ -48,12 +48,16 @@ app.get("/", (req: any, res: any) => {
       console.log(`a user disconnected [${socket.id}]`);
       db.LREM(`u`, 1, `${socket.id}`);
     });
-    io.emit("users", await db.LRANGE("u", 0, -1));
+    io.emit("users", {
+      message: "users",
+      data: await db.LRANGE("u", 0, -1),
+    });
     socket.on("c:move", (move: any) => {
       console.log("c:move" + move);
       io.emit("s:status", {
+        message: "pong",
+        data: {},
         id: socket.id,
-        move,
       });
     });
   });

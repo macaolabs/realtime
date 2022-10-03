@@ -1,0 +1,37 @@
+{
+  "name": "pubsub-service",
+  "version": "1.0.0",
+  "main": "dist/server.js",
+  "license": "MIT",
+  "scripts": {
+    "clean": "rimraf dist/",
+    "build": "yarn clean && tsc && yarn copy-files",
+    "watch-ts": "tsc -w",
+    "dev": "yarn clean && yarn watch",
+    "watch-node": "nodemon dist/server.js",
+    "watch:public": "copy-and-watch --watch src/**/*.html src/**/*.css dist/",
+    "watch": "yarn clean && concurrently -k -p \"[{name}]\" -n \"TypeScript, Node\" -c \"yello.bold, cyan.bold\" \"yarn run watch-ts\" \"yarn run watch:public\" \"yarn run watch-node\"",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts"
+  },
+  "dependencies": {
+    "@socket.io/redis-adapter": "^7.2.0",
+    "@types/compression": "^1.7.2",
+    "@types/express": "^4.17.14",
+    "@types/node": "^18.8.0",
+    "@types/redis": "^4.0.11",
+    "@types/socket.io": "^3.0.2",
+    "body-parser": "^1.20.0",
+    "compression": "^1.7.4",
+    "concurrently": "^7.4.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.20",
+    "redis": "^4.3.1",
+    "socket.io": "^4.5.2"
+  },
+  "devDependencies": {
+    "copy-and-watch": "^0.1.6",
+    "copyfiles": "^2.4.1",
+    "rimraf": "^3.0.2"
+  }
+}

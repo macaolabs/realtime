@@ -4,9 +4,17 @@ dotenv.config();
 import { createClient } from "redis";
 import { createAdapter } from "@socket.io/redis-adapter";
 import app from "./app";
+const cors = require("cors");
+const localtunnel = require("localtunnel");
 
 const PORT = process.env.PORT || 3000;
 app.set("port", PORT);
+app.use(
+  cors({
+    origin: `http://localhost:${PORT}`,
+    credentials: true,
+  })
+);
 const http = require("http").Server(app);
 const io = require("socket.io")(http);
 
@@ -50,7 +58,16 @@ app.get("/", (req: any, res: any) => {
     });
   });
 
-  http.listen(3000, function () {
-    console.log("listening on *:3000");
+  http.listen(PORT, async () => {
+    console.log(`listening on *:${PORT}`);
+    const tunnel = await localtunnel({ port: PORT, subdomain: "swt-bank" });
+    console.log("Server listening on http://localhost:" + PORT);
+    console.log("Tunnel:https://" + tunnel.clientId + ".loca.lt");
+    tunnel.on("close", () => {
+      console.log("Tunnel closed");
+    });
+    process.on("exit", () => {
+      tunnel.close();
+    });
   });
 })();

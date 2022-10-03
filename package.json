@@ -4,6 +4,7 @@
   "main": "dist/server.js",
   "license": "MIT",
   "scripts": {
+    "copy-files": "copyfiles -u 1 src/public/**/*.html src/public/**/*.css dist/",
     "clean": "rimraf dist/",
     "build": "yarn clean && tsc && yarn copy-files",
     "watch-ts": "tsc -w",
@@ -23,8 +24,10 @@
     "body-parser": "^1.20.0",
     "compression": "^1.7.4",
     "concurrently": "^7.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "localtunnel": "^2.0.2",
     "nodemon": "^2.0.20",
     "redis": "^4.3.1",
     "socket.io": "^4.5.2"
@@ -32,6 +35,9 @@
   "devDependencies": {
     "copy-and-watch": "^0.1.6",
     "copyfiles": "^2.4.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "ts-jest": "28.0.5",
+    "ts-node": "10.8.2",
+    "typescript": "4.7.4"
   }
 }

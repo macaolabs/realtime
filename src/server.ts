@@ -60,14 +60,16 @@ app.get("/", (req: any, res: any) => {
 
   http.listen(PORT, async () => {
     console.log(`listening on *:${PORT}`);
-    const tunnel = await localtunnel({ port: PORT, subdomain: "swt-bank" });
-    console.log("Server listening on http://localhost:" + PORT);
-    console.log("Tunnel:https://" + tunnel.clientId + ".loca.lt");
-    tunnel.on("close", () => {
-      console.log("Tunnel closed");
-    });
-    process.on("exit", () => {
-      tunnel.close();
-    });
+    if (process.env.NODE_ENV === "development") {
+      const tunnel = await localtunnel({ port: PORT, subdomain: "swt-bank" });
+      console.log("Server listening on http://localhost:" + PORT);
+      console.log("Tunnel:https://" + tunnel.clientId + ".loca.lt");
+      tunnel.on("close", () => {
+        console.log("Tunnel closed");
+      });
+      process.on("exit", () => {
+        tunnel.close();
+      });
+    }
   });
 })();

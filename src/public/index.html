@@ -38,7 +38,7 @@
     <main role="main">
       <div class="jumbotron">
         <div class="container">
-          <h1 class="display-3">Socket IO - React</h1>
+          <h1 class="display-3">Socket IO - React - Games</h1>
         </div>
       </div>
     </main>
@@ -60,7 +60,7 @@
     ></script>
     <script type="module">
       import { io } from "https://cdn.socket.io/4.3.2/socket.io.esm.min.js";
-      const socket = io("https://swt-bank.loca.lt");
+      const socket = io("https://realtime-g2g4oq25qa-uc.a.run.app");
       console.log("io ready");
       socket.on("connect", () => {
         console.log("onconnect", socket.id);
